@@ -56,11 +56,11 @@ const App = () => (
 `<Detector render={({ online }) => ...}/>` - Component that calls its `render` prop every time the connection state changes. The `render` prop is supplied with an object with an `online` boolean value. _Recommended for more complex cases, e.g. when styles need to be changed with connection status._
 
 ```jsx
-<Detector
-  render={({ online }) => (
+<Detector>
+  {(online) => (
     <div className={online ? 'normal' : 'warning'}>You are currently {online ? 'online' : 'offline'}</div>
   )}
-/>
+</Detector>
 ```
 
 ### Props
