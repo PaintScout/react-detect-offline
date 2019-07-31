@@ -1,7 +1,36 @@
-[![npm](https://img.shields.io/npm/v/react-detect-offline.svg)](https://www.npmjs.com/package/react-detect-offline)
-[![npm downloads](https://img.shields.io/npm/dm/react-detect-offline.svg)](https://www.npmjs.com/package/react-detect-offline)
-![gzip size](http://img.badgesize.io/https://unpkg.com/react-detect-offline?compression=gzip&label=gzip%20size)
-![badges](https://img.shields.io/badge/license-MIT-lightgrey.svg)
+# Demo
+
+Check out [chris.bolin.co/offline](https://chris.bolin.co/offline) for a simple example ([source code](https://github.com/chrisbolin/offline/blob/master/src/App.js)).
+
+# Setup
+
+add to package.json (not yet published on npm)
+
+```
+"react-detect-offline": "git://github.com/TapTapQuote/react-detect-offline.git#master"
+```
+
+then npm/yarn install
+
+# Documentation
+
+## Hooks
+
+```jsx
+import { useConnection } from "react-detect-offline";
+
+const App = () => {
+  const { online } = useConnection();
+  return (
+    <div>
+      {online && <p>Only shown when you're online</p>}
+      {!online && <p>Only shown when you're offline</p>}
+    </div>
+  );
+};
+```
+
+## Components
 
 ### Offline and Online components for React
 
@@ -17,12 +46,6 @@ const App = () => (
   </div>
 );
 ```
-
-### Demo
-
-Check out [chris.bolin.co/offline](https://chris.bolin.co/offline) for a simple example ([source code](https://github.com/chrisbolin/offline/blob/master/src/App.js)).
-
-### Components
 
 #### Simple
 
@@ -66,22 +89,6 @@ Check out [chris.bolin.co/offline](https://chris.bolin.co/offline) for a simple 
 [2] `<Online/>` and `<Offline/>` only. `<Detector/>` will not render `children`.
 
 [3] `<Detector/>` only
-
-### Hooks
-
-```jsx
-import { useConnection } from "react-detect-offline";
-
-const App = () => {
-  const { online } = useConnection();
-  return (
-    <div>
-      {online && <p>Only shown when you're online</p>}
-      {!online && <p>Only shown when you're offline</p>}
-    </div>
-  );
-};
-```
 
 ### Browser Support
 
