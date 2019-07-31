@@ -1,22 +1,21 @@
 {
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
   },
-  "extends": [
-    "formidable",
-    "formidable/configurations/es6-browser",
-    "formidable/configurations/es6-react-test",
-    "plugin:prettier/recommended"
-  ],
-  "env": {
-    "jest": true
-  },
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:react/recommended", "prettier"],
   "rules": {
-    "no-magic-numbers": "off",
-    "filenames/match-regex": "off"
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/indent": 0,
+    "@typescript-eslint/member-delimiter-style": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-use-before-define": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

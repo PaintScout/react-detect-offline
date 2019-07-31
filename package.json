@@ -1,63 +1,44 @@
 {
   "name": "react-detect-offline",
-  "version": "2.4.0",
-  "description": "Offline and Online components for React",
+  "version": "3.0.0",
   "main": "dist/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TapTapQuote/react-detect-offline"
-  },
-  "files": ["/dist/"],
-  "author": "PaintScout",
-  "license": "MIT",
-  "types": "types.d.ts",
-  "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
-    "@testing-library/react": "^8.0.7",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.8.0",
-    "babel-plugin-add-module-exports": "^1.0.2",
-    "eslint": "^4.19.1",
-    "eslint-config-formidable": "^3.0.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-filenames": "^1.2.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.0",
-    "eslint-plugin-react": "^7.7.0",
-    "jest": "^24.8.0",
-    "prettier": "^1.11.1",
-    "prop-types": "^15.6.1",
-    "react": "^16.9.0-alpha.0",
-    "react-dom": "^16.9.0-alpha.0"
-  },
-  "bugs": {
-    "url": "https://github.com/TapTapQuote/react-detect-offline/issues"
-  },
-  "homepage": "https://github.com/TapTapQuote/react-detect-offline#readme",
+  "umd:main": "dist/react-detect-offline.umd.production.js",
+  "module": "dist/react-detect-offline.es.production.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "babel src/**/*.js --out-dir dist",
-    "test": "jest spec",
-    "test-watch": "jest spec --watch",
-    "lint": "eslint src/ demo/src",
-    "prettier": "prettier src/** demo/src/** --write"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "jest",
+    "lint": "eslint **/*.ts **/*.tsx"
   },
-  "keywords": ["react", "offline", "online", "detect", "disconnect"],
-  "jest": {
-    "setupFilesAfterEnv": ["@testing-library/react/cleanup-after-each"],
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!<rootDir>/node_modules/",
-      "!<rootDir>/demo/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged && lint"
     }
+  },
+  "devDependencies": {
+    "@testing-library/react": "^8.0.7",
+    "@types/jest": "^24.0.16",
+    "@types/react": "^16.8.24",
+    "@types/react-dom": "^16.8.5",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-react": "^7.14.3",
+    "husky": "^3.0.2",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "tsdx": "^0.7.2",
+    "tslib": "^1.10.0",
+    "typescript": "^3.5.3"
   }
 }

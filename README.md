@@ -1,7 +1,3 @@
-# Demo
-
-Check out [chris.bolin.co/offline](https://chris.bolin.co/offline) for a simple example ([source code](https://github.com/chrisbolin/offline/blob/master/src/App.js)).
-
 # Setup
 
 add to package.json (not yet published on npm)
@@ -17,17 +13,17 @@ then npm/yarn install
 ## Hooks
 
 ```jsx
-import { useConnection } from "react-detect-offline";
+import { useConnection } from 'react-detect-offline'
 
 const App = () => {
-  const { online } = useConnection();
+  const { online } = useConnection()
   return (
     <div>
       {online && <p>Only shown when you're online</p>}
       {!online && <p>Only shown when you're offline</p>}
     </div>
-  );
-};
+  )
+}
 ```
 
 ## Components
@@ -37,14 +33,14 @@ const App = () => {
 Components that track [offline and online state](https://developer.mozilla.org/en-US/docs/Online_and_offline_events). Render certain content only when online (or only when offline).
 
 ```jsx
-import { Offline, Online } from "react-detect-offline";
+import { Offline, Online } from 'react-detect-offline'
 
 const App = () => (
   <div>
     <Online>Only shown when you're online</Online>
     <Offline>Only shown offline (surprise!)</Offline>
   </div>
-);
+)
 ```
 
 #### Simple
@@ -62,9 +58,7 @@ const App = () => (
 ```jsx
 <Detector
   render={({ online }) => (
-    <div className={online ? "normal" : "warning"}>
-      You are currently {online ? "online" : "offline"}
-    </div>
+    <div className={online ? 'normal' : 'warning'}>You are currently {online ? 'online' : 'offline'}</div>
   )}
 />
 ```
@@ -98,5 +92,5 @@ The [web spec](https://developer.mozilla.org/en-US/docs/Online_and_offline_event
 
 PRs are welcome!
 
-* Test: `yarn test`
-* Build: `yarn build`. Make sure you commit the build file (`dist/index.js`)
+- Test: `yarn test`
+- Build: `yarn build`. Make sure you commit the build file (`dist/index.js`)
