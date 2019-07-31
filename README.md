@@ -67,6 +67,22 @@ Check out [chris.bolin.co/offline](https://chris.bolin.co/offline) for a simple 
 
 [3] `<Detector/>` only
 
+### Hooks
+
+```jsx
+import { useConnection } from "react-detect-offline";
+
+const App = () => {
+  const { online } = useConnection();
+  return (
+    <div>
+      {online && <p>Only shown when you're online</p>}
+      {!online && <p>Only shown when you're offline</p>}
+    </div>
+  );
+};
+```
+
 ### Browser Support
 
 The [web spec](https://developer.mozilla.org/en-US/docs/Online_and_offline_events) we rely on is supported by IE 9+, Chrome 14+, Firefox 41+, and Safari 5+ - that's [94% of worldwide (98% of US)](http://caniuse.com/#feat=online-status) browser traffic. A polling fallback is used for browsers that don't implement the spec in a useful way (see note [1] in the above Props section).
