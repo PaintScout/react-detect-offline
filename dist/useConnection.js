@@ -129,3 +129,5 @@ function useDetector() {
     offline: !online
   };
 }
+
+module.exports = exports.default;

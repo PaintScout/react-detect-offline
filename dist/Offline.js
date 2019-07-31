@@ -28,3 +28,5 @@ function Offline(_ref) {
   }, [online]);
   return !online ? children : null;
 }
+
+module.exports = exports.default;

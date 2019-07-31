@@ -42,3 +42,5 @@ function Detector(_ref) {
 
   return null;
 }
+
+module.exports = exports.default;

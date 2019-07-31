@@ -5,19 +5,20 @@
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrisbolin/react-detect-offline.git"
+    "url": "git+https://github.com/TapTapQuote/react-detect-offline"
   },
   "files": ["/dist/"],
-  "author": "Chris Bolin",
+  "author": "PaintScout",
   "license": "MIT",
   "types": "types.d.ts",
   "devDependencies": {
-    "@testing-library/react": "^8.0.7",
     "@babel/cli": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
-    "babel-eslint": "^10.0.2",
+    "@testing-library/react": "^8.0.7",
+    "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "eslint": "^4.19.1",
     "eslint-config-formidable": "^3.0.0",
     "eslint-config-prettier": "^2.9.0",
@@ -32,16 +33,15 @@
     "react-dom": "^16.9.0-alpha.0"
   },
   "bugs": {
-    "url": "https://github.com/chrisbolin/react-detect-offline/issues"
+    "url": "https://github.com/TapTapQuote/react-detect-offline/issues"
   },
-  "homepage": "https://github.com/chrisbolin/react-detect-offline#readme",
+  "homepage": "https://github.com/TapTapQuote/react-detect-offline#readme",
   "scripts": {
     "build": "babel src/**/*.js --out-dir dist",
     "test": "jest spec",
     "test-watch": "jest spec --watch",
     "lint": "eslint src/ demo/src",
-    "prettier": "prettier src/** demo/src/** --write",
-    "test.cover": "jest spec --coverage"
+    "prettier": "prettier src/** demo/src/** --write"
   },
   "keywords": ["react", "offline", "online", "detect", "disconnect"],
   "jest": {
