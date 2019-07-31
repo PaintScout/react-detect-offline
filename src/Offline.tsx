@@ -9,14 +9,11 @@ export interface OfflineProps extends UseConnectionArgs {
 export default function Offline({ children, polling, onChange }: OfflineProps): JSX.Element {
   const { online } = useConnection({ polling })
 
-  useEffect(
-    () => {
-      if (onChange) {
-        onChange(online)
-      }
-    },
-    [online]
-  )
+  useEffect(() => {
+    if (onChange) {
+      onChange(online)
+    }
+  }, [online])
 
   return !online ? children : null
 }
