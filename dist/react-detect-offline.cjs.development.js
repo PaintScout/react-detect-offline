@@ -99,7 +99,7 @@ var ping = function ping(_ref2) {
 var getPollingConfig = function getPollingConfig(polling) {
   var defaultPollingConfig = {
     enabled: inBrowser && unsupportedUserAgentsPattern.test(navigator.userAgent),
-    url: 'https://ipv4.icanhazip.com/',
+    url: 'https://checkip.amazonaws.com/',
     timeout: 5000,
     interval: 5000
   }
