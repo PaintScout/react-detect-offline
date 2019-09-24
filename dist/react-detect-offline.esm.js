@@ -97,7 +97,7 @@ var ping = function ping(_ref2) {
 var getPollingConfig = function getPollingConfig(polling) {
   var defaultPollingConfig = {
     enabled: inBrowser && unsupportedUserAgentsPattern.test(navigator.userAgent),
-    url: 'https://checkip.amazonaws.com/',
+    url: 'https://app.paintscout.com/api/',
     timeout: 5000,
     interval: 5000
   }
