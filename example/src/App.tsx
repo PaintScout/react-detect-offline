@@ -1,9 +1,17 @@
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
-import { useConnection } from 'react-detect-offline'
+import { useConnection, ConnectionProvider } from 'react-detect-offline'
 
 const App: React.FC = () => {
+  return (
+    <ConnectionProvider poll>
+      <Content />
+    </ConnectionProvider>
+  )
+}
+
+function Content() {
   const { online } = useConnection()
   return (
     <div className="App">
@@ -14,5 +22,4 @@ const App: React.FC = () => {
     </div>
   )
 }
-
 export default App

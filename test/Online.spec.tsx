@@ -1,6 +1,9 @@
 import React from 'react'
 import { render, act } from '@testing-library/react'
 import Online from '../src/Online'
+import { ConnectionProvider } from '../src'
+
+const wrapper = (props: any) => <ConnectionProvider {...props} />
 
 describe('Online', () => {
   beforeEach(() => {
@@ -14,17 +17,8 @@ describe('Online', () => {
     const { getByText } = render(
       <Online>
         <h1>Hello World</h1>
-      </Online>
-    )
-
-    expect(getByText(/Hello World/)).toBeDefined()
-  })
-
-  it('should render children when online and using a custom polling URL', () => {
-    const { getByText } = render(
-      <Online polling={{ url: 'https://www.google.com/' }}>
-        <h1>Hello World</h1>
-      </Online>
+      </Online>,
+      { wrapper }
     )
 
     expect(getByText(/Hello World/)).toBeDefined()
@@ -36,19 +30,8 @@ describe('Online', () => {
     const { queryByText } = render(
       <Online>
         <h1>Hello World</h1>
-      </Online>
-    )
-
-    expect(queryByText(/Hello World/)).toBeNull()
-  })
-
-  it('should not render children when offline and using a custom polling URL', () => {
-    Object.defineProperty(navigator, 'onLine', { value: false })
-
-    const { queryByText } = render(
-      <Online polling={{ url: 'https://www.google.com/' }}>
-        <h1>Hello World</h1>
-      </Online>
+      </Online>,
+      { wrapper }
     )
 
     expect(queryByText(/Hello World/)).toBeNull()
@@ -59,7 +42,8 @@ describe('Online', () => {
     const { queryByText } = render(
       <Online>
         <h1>Hello World</h1>
-      </Online>
+      </Online>,
+      { wrapper }
     )
 
     // get the listener with name "offline" (param 0) and call the function (param 1)
@@ -77,7 +61,8 @@ describe('Online', () => {
     const { unmount } = render(
       <Online>
         <h1>Hello World</h1>
-      </Online>
+      </Online>,
+      { wrapper }
     )
     unmount()
 

@@ -1,7 +1,6 @@
 /// <reference types="react" />
-import { UseConnectionArgs } from './useConnection'
-export interface OnlineProps extends UseConnectionArgs {
+export interface OnlineProps {
   children: JSX.Element
   onChange?: (online: boolean) => any
 }
-export default function Online({ children, polling, onChange }: OnlineProps): JSX.Element
+export default function Online({ children, onChange }: OnlineProps): JSX.Element

@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
-import useConnection, { UseConnectionArgs } from './useConnection'
+import { useConnection } from './useConnection'
 
-export interface OfflineProps extends UseConnectionArgs {
+export interface OfflineProps {
   children: JSX.Element
   onChange?: (online: boolean) => any
 }
 
-export default function Offline({ children, polling, onChange }: OfflineProps): JSX.Element {
-  const { online } = useConnection({ polling })
+export default function Offline({ children, onChange }: OfflineProps): JSX.Element {
+  const { online } = useConnection()
 
   useEffect(() => {
     if (onChange) {

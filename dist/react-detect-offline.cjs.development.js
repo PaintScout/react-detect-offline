@@ -1,19 +1,95 @@
 'use strict'
 
-var react = require('react')
+function _interopDefault(ex) {
+  return ex && typeof ex === 'object' && 'default' in ex ? ex['default'] : ex
+}
+
+var React = require('react')
+var React__default = _interopDefault(React)
+
+var ConnectionContext =
+  /*#__PURE__*/
+  React__default.createContext({
+    online: true
+  })
+
+function useConnection() {
+  return React.useContext(ConnectionContext)
+}
+
+function Online(_ref) {
+  var children = _ref.children,
+    onChange = _ref.onChange
+
+  var _useConnection = useConnection(),
+    online = _useConnection.online
+
+  React.useEffect(
+    function() {
+      if (onChange) {
+        onChange(online)
+      }
+    },
+    [online]
+  )
+  return online ? children : null
+}
+
+function Offline(_ref) {
+  var children = _ref.children,
+    onChange = _ref.onChange
+
+  var _useConnection = useConnection(),
+    online = _useConnection.online
+
+  React.useEffect(
+    function() {
+      if (onChange) {
+        onChange(online)
+      }
+    },
+    [online]
+  )
+  return !online ? children : null
+}
+
+function Detector(_ref) {
+  var children = _ref.children,
+    onChange = _ref.onChange
+
+  var _useConnection = useConnection(),
+    online = _useConnection.online
+
+  React.useEffect(
+    function() {
+      if (onChange) {
+        onChange(online)
+      }
+    },
+    [online]
+  )
+
+  if (children) {
+    return children(online)
+  }
+
+  return null
+}
 
 var inBrowser = typeof navigator !== 'undefined' // these browsers don't fully support navigator.onLine, so we need to use a polling backup
 
 var unsupportedUserAgentsPattern = /Windows.*Chrome|Windows.*Firefox|Linux.*Chrome/
-function useConnection(_temp) {
-  var _ref = _temp === void 0 ? {} : _temp,
-    polling = _ref.polling
 
-  var _useState = react.useState(inBrowser && typeof navigator.onLine === 'boolean' ? navigator.onLine : true),
+var ConnectionProvider = function ConnectionProvider(_ref) {
+  var _ref$poll = _ref.poll,
+    poll = _ref$poll === void 0 ? true : _ref$poll,
+    children = _ref.children
+
+  var _useState = React.useState(inBrowser && typeof navigator.onLine === 'boolean' ? navigator.onLine : true),
     online = _useState[0],
     setOnline = _useState[1]
 
-  react.useEffect(function() {
+  React.useEffect(function() {
     var goOnline = function goOnline() {
       setOnline(true)
     }
@@ -29,9 +105,9 @@ function useConnection(_temp) {
       window.removeEventListener('offline', goOffline)
     }
   }, [])
-  react.useEffect(
+  React.useEffect(
     function() {
-      var _getPollingConfig = getPollingConfig(polling),
+      var _getPollingConfig = getPollingConfig(poll),
         enabled = _getPollingConfig.enabled,
         interval = _getPollingConfig.interval,
         url = _getPollingConfig.url,
@@ -56,12 +132,23 @@ function useConnection(_temp) {
         }
       }
     },
-    [polling]
+    [poll]
   )
-  return {
-    online: online,
-    offline: !online
-  }
+  var value = React.useMemo(
+    function() {
+      return {
+        online: online
+      }
+    },
+    [online]
+  )
+  return React__default.createElement(
+    ConnectionContext.Provider,
+    {
+      value: value
+    },
+    children
+  )
 }
 
 var ping = function ping(_ref2) {
@@ -118,74 +205,8 @@ var getPollingConfig = function getPollingConfig(polling) {
   }
 }
 
-function Online(_ref) {
-  var children = _ref.children,
-    polling = _ref.polling,
-    onChange = _ref.onChange
-
-  var _useConnection = useConnection({
-      polling: polling
-    }),
-    online = _useConnection.online
-
-  react.useEffect(
-    function() {
-      if (onChange) {
-        onChange(online)
-      }
-    },
-    [online]
-  )
-  return online ? children : null
-}
-
-function Offline(_ref) {
-  var children = _ref.children,
-    polling = _ref.polling,
-    onChange = _ref.onChange
-
-  var _useConnection = useConnection({
-      polling: polling
-    }),
-    online = _useConnection.online
-
-  react.useEffect(
-    function() {
-      if (onChange) {
-        onChange(online)
-      }
-    },
-    [online]
-  )
-  return !online ? children : null
-}
-
-function Detector(_ref) {
-  var children = _ref.children,
-    polling = _ref.polling,
-    onChange = _ref.onChange
-
-  var _useConnection = useConnection({
-      polling: polling
-    }),
-    online = _useConnection.online
-
-  react.useEffect(
-    function() {
-      if (onChange) {
-        onChange(online)
-      }
-    },
-    [online]
-  )
-
-  if (children) {
-    return children(online)
-  }
-
-  return null
-}
-
+exports.ConnectionContext = ConnectionContext
+exports.ConnectionProvider = ConnectionProvider
 exports.Detector = Detector
 exports.Offline = Offline
 exports.Online = Online

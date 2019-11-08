@@ -1,4 +1,7 @@
 export { default as Online } from './Online'
 export { default as Offline } from './Offline'
 export { default as Detector } from './Detector'
-export { default as useConnection } from './useConnection'
+export { default as ConnectionProvider } from './ConnectionProvider'
+export * from './useConnection'
+export * from './ConnectionProvider'
+export * from './ConnectionContext'

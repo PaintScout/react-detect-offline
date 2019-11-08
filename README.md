@@ -15,13 +15,22 @@ then npm/yarn install
 ```jsx
 import { useConnection } from 'react-detect-offline'
 
-const App = () => {
+const MyCoolComponent = () => {
   const { online } = useConnection()
+
   return (
     <div>
       {online && <p>Only shown when you're online</p>}
       {!online && <p>Only shown when you're offline</p>}
     </div>
+  )
+}
+
+const App = () => {
+  return (
+    <ConnectionProvider>
+      <MyCoolComponent />
+    <ConnectionProvider />
   )
 }
 ```
@@ -33,34 +42,14 @@ const App = () => {
 Components that track [offline and online state](https://developer.mozilla.org/en-US/docs/Online_and_offline_events). Render certain content only when online (or only when offline).
 
 ```jsx
-import { Offline, Online } from 'react-detect-offline'
+import { Offline, Online, ConnectionProvider } from 'react-detect-offline'
 
 const App = () => (
-  <div>
+  <ConnectionProvider>
     <Online>Only shown when you're online</Online>
     <Offline>Only shown offline (surprise!)</Offline>
-  </div>
+  </ConnectionProvider>
 )
-```
-
-#### Simple
-
-`<Online/>` and `<Offline/>` - Components that render their children only when the browser is online/offline.
-
-```jsx
-<Offline>You're offline right now. Check your connection.</Offline>
-```
-
-#### Advanced
-
-`<Detector render={({ online }) => ...}/>` - Component that calls its `render` prop every time the connection state changes. The `render` prop is supplied with an object with an `online` boolean value. _Recommended for more complex cases, e.g. when styles need to be changed with connection status._
-
-```jsx
-<Detector>
-  {(online) => (
-    <div className={online ? 'normal' : 'warning'}>You are currently {online ? 'online' : 'offline'}</div>
-  )}
-</Detector>
 ```
 
 ### Props
