@@ -6,12 +6,20 @@ const inBrowser = typeof navigator !== 'undefined'
 // these browsers don't fully support navigator.onLine, so we need to use a polling backup
 const unsupportedUserAgentsPattern = /Windows.*Chrome|Windows.*Firefox|Linux.*Chrome/
 
+export interface PollingConfig {
+  enabled?: boolean
+  url?: string
+  interval?: number
+  timeout?: number
+}
+
 export interface ConnectionProviderProps {
   poll?: boolean
+  config?: PollingConfig
   children: React.ReactNode
 }
 
-const ConnectionProvider: React.FC<ConnectionProviderProps> = ({ poll = true, children }) => {
+const ConnectionProvider: React.FC<ConnectionProviderProps> = ({ poll = true, config, children }) => {
   const [online, setOnline] = useState(inBrowser && typeof navigator.onLine === 'boolean' ? navigator.onLine : true)
 
   useEffect(() => {
@@ -31,7 +39,7 @@ const ConnectionProvider: React.FC<ConnectionProviderProps> = ({ poll = true, ch
   }, [])
 
   useEffect(() => {
-    const { enabled, interval, url, timeout } = getPollingConfig(poll)
+    const { enabled, interval, url, timeout } = getPollingConfig(poll, config)
     let pollingId: NodeJS.Timeout = null
 
     if (enabled) {
@@ -73,34 +81,32 @@ const ping = ({ url, timeout }: { url: string; timeout: number }) => {
       }
     }
 
-    xhr.open('HEAD', url)
+    xhr.open('GET', url)
     xhr.timeout = timeout
     xhr.send()
   })
 }
 
-const getPollingConfig = (
-  polling: boolean
-): {
-  enabled?: boolean
-  url?: string
-  interval?: number
-  timeout?: number
-} => {
+const getPollingConfig = (polling: boolean, config: PollingConfig): PollingConfig => {
   const defaultPollingConfig = {
     enabled: inBrowser && unsupportedUserAgentsPattern.test(navigator.userAgent),
-    url: 'https://app.paintscout.com/api/',
+    url: 'https://api.paintscout.com/',
     timeout: 5000,
     interval: 5000
   }
 
+  const pollingConfig = {
+    ...defaultPollingConfig,
+    ...(config ? config : {})
+  }
+
   switch (polling) {
     case true:
-      return defaultPollingConfig
+      return pollingConfig
     case false:
       return { enabled: false }
     default:
-      return Object.assign({}, defaultPollingConfig, polling)
+      return Object.assign({}, pollingConfig, polling)
   }
 }
 

@@ -69,6 +69,26 @@ function Detector(_ref) {
   return null
 }
 
+function _extends() {
+  _extends =
+    Object.assign ||
+    function(target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i]
+
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key]
+          }
+        }
+      }
+
+      return target
+    }
+
+  return _extends.apply(this, arguments)
+}
+
 var inBrowser = typeof navigator !== 'undefined' // these browsers don't fully support navigator.onLine, so we need to use a polling backup
 
 var unsupportedUserAgentsPattern = /Windows.*Chrome|Windows.*Firefox|Linux.*Chrome/
@@ -76,6 +96,7 @@ var unsupportedUserAgentsPattern = /Windows.*Chrome|Windows.*Firefox|Linux.*Chro
 var ConnectionProvider = function ConnectionProvider(_ref) {
   var _ref$poll = _ref.poll,
     poll = _ref$poll === void 0 ? true : _ref$poll,
+    config = _ref.config,
     children = _ref.children
 
   var _useState = useState(inBrowser && typeof navigator.onLine === 'boolean' ? navigator.onLine : true),
@@ -100,7 +121,7 @@ var ConnectionProvider = function ConnectionProvider(_ref) {
   }, [])
   useEffect(
     function() {
-      var _getPollingConfig = getPollingConfig(poll),
+      var _getPollingConfig = getPollingConfig(poll, config),
         enabled = _getPollingConfig.enabled,
         interval = _getPollingConfig.interval,
         url = _getPollingConfig.url,
@@ -170,23 +191,25 @@ var ping = function ping(_ref2) {
       }
     }
 
-    xhr.open('HEAD', url)
+    xhr.open('GET', url)
     xhr.timeout = timeout
     xhr.send()
   })
 }
 
-var getPollingConfig = function getPollingConfig(polling) {
+var getPollingConfig = function getPollingConfig(polling, config) {
   var defaultPollingConfig = {
     enabled: inBrowser && unsupportedUserAgentsPattern.test(navigator.userAgent),
-    url: 'https://app.paintscout.com/api/',
+    url: 'https://api.paintscout.com/',
     timeout: 5000,
     interval: 5000
   }
 
+  var pollingConfig = _extends({}, defaultPollingConfig, {}, config ? config : {})
+
   switch (polling) {
     case true:
-      return defaultPollingConfig
+      return pollingConfig
 
     case false:
       return {
@@ -194,7 +217,7 @@ var getPollingConfig = function getPollingConfig(polling) {
       }
 
     default:
-      return Object.assign({}, defaultPollingConfig, polling)
+      return Object.assign({}, pollingConfig, polling)
   }
 }
 
