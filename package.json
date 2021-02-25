@@ -2,8 +2,7 @@
   "name": "react-detect-offline",
   "version": "3.1.0",
   "main": "dist/index.js",
-  "umd:main": "dist/react-detect-offline.umd.production.js",
-  "module": "dist/react-detect-offline.es.production.js",
+  "module": "dist/react-detect-offline.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
